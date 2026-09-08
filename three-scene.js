@@ -23,7 +23,7 @@
 
   // Global Scene Groups
   let stage1LaptopGroup, lidPivot, screenMesh, screenTexture, screenCanvas, screenCtx;
-  let stage1DeskGroup, screenOrangeLight, screenCyanLight;
+  let screenOrangeLight, screenCyanLight;
   let stage2CodeGroup, codePlanes = [], matrixParticles;
   let stage3GlobeGroup, earthMesh, atmosphereMesh, cloudMesh;
   let cyberArcs = [], arcPackets = [], honoluluBeacon, orbitalRing, globeHudMesh;
@@ -131,14 +131,14 @@
     const sp = 29;
 
     renderLine('waiman@security:~$ whoami', '#ffffff', startY);
-    renderLine('> Waiman Ao | BAS in Information Technology Candidate', '#66e0ff', startY + sp);
-    renderLine('waiman@security:~$ init_cyber_defense --mode=zero-trust', '#ffffff', startY + sp * 2.3);
-    renderLine('• Location    : Honolulu, HI (Authorized to work in US)', '#30d158', startY + sp * 3.3);
-    renderLine('• Education   : University of Hawaiʻi – West Oʻahu', '#ffd166', startY + sp * 4.3);
-    renderLine('• Defense Ops : Global Threat Intelligence SOC [ONLINE]', '#ff7733', startY + sp * 5.3);
-    renderLine('• Languages   : Trilingual (Cantonese, English, Mandarin)', '#ffffff', startY + sp * 6.3);
+    renderLine('> Waiman Ao | Cybersecurity & AI Solutions Engineer', '#66e0ff', startY + sp);
+    renderLine('waiman@security:~$ cat competencies.json', '#ffffff', startY + sp * 2.3);
+    renderLine('• Security    : Vulnerability Assessment & Defensive Engineering', '#30d158', startY + sp * 3.3);
+    renderLine('• AI Systems  : Autonomous AI Agent Programming & Full-Stack', '#ffd166', startY + sp * 4.3);
+    renderLine('• GitHub/Apps : github.com/keanao115 | ERMS Cloud', '#ff7733', startY + sp * 5.3);
+    renderLine('• Location    : Honolulu, HI | US Work Authorized', '#ffffff', startY + sp * 6.3);
     renderLine('waiman@security:~$ scroll_down --dive-into-screen', '#ffffff', startY + sp * 7.7);
-    renderLine('[✓] Threat Sensors Armed. Entering Global Cyber Grid...', '#30d158', startY + sp * 8.7);
+    renderLine('[✓] Threat Defense & AI Agents Active. Dive Initiated...', '#30d158', startY + sp * 8.7);
 
     ctx.fillStyle = '#66e0ff';
     ctx.fillRect(495, startY + sp * 7.7 - 14, 10, 18);
@@ -147,58 +147,15 @@
   }
 
   /* -------------------------------------------------------------
-     2. DUAL-COLOR DESK LIGHT SPILL TEXTURE
-     ------------------------------------------------------------- */
-  function createDeskLightTexture() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
-    ctx.fillRect(0, 0, 512, 512);
-
-    const cyanGrad = ctx.createRadialGradient(160, 280, 20, 160, 280, 220);
-    cyanGrad.addColorStop(0, 'rgba(41, 199, 255, 0.45)');
-    cyanGrad.addColorStop(0.5, 'rgba(41, 199, 255, 0.15)');
-    cyanGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = cyanGrad;
-    ctx.beginPath();
-    ctx.arc(160, 280, 220, 0, Math.PI * 2);
-    ctx.fill();
-
-    const orangeGrad = ctx.createRadialGradient(320, 240, 20, 320, 240, 200);
-    orangeGrad.addColorStop(0, 'rgba(255, 94, 58, 0.55)');
-    orangeGrad.addColorStop(0.5, 'rgba(255, 60, 0, 0.18)');
-    orangeGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = orangeGrad;
-    ctx.beginPath();
-    ctx.arc(320, 240, 200, 0, Math.PI * 2);
-    ctx.fill();
-
-    const shadowGrad = ctx.createRadialGradient(256, 260, 30, 256, 260, 160);
-    shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.7)');
-    shadowGrad.addColorStop(0.7, 'rgba(0, 0, 0, 0.2)');
-    shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = shadowGrad;
-    ctx.beginPath();
-    ctx.arc(256, 260, 160, 0, Math.PI * 2);
-    ctx.fill();
-
-    return new THREE.CanvasTexture(canvas);
-  }
-
-  /* -------------------------------------------------------------
-     3. STAGE 1: ACCURATE MACBOOK PRO MODEL & DESK ENVIRONMENT
+     2. STAGE 1: ACCURATE MACBOOK PRO MODEL
      ------------------------------------------------------------- */
   function createStage1MacBook() {
     stage1LaptopGroup = new THREE.Group();
-    stage1DeskGroup = new THREE.Group();
 
     materials.laptopBody = new THREE.MeshStandardMaterial({
-      color: currentTheme === 'dark' ? 0x222428 : 0xd2d5da,
-      metalness: 0.90,
-      roughness: 0.20,
+      color: currentTheme === 'dark' ? 0x1e2026 : 0xd8dde6,
+      metalness: currentTheme === 'dark' ? 0.94 : 0.92,
+      roughness: currentTheme === 'dark' ? 0.22 : 0.16,
       transparent: true,
       opacity: 1.0
     });
@@ -212,7 +169,7 @@
     });
 
     materials.trackpad = new THREE.MeshStandardMaterial({
-      color: currentTheme === 'dark' ? 0x2a2d33 : 0xc2c6cc,
+      color: currentTheme === 'dark' ? 0x25272e : 0xc6cbd3,
       roughness: 0.28,
       metalness: 0.6,
       transparent: true,
@@ -234,33 +191,6 @@
       transparent: true,
       opacity: 1.0
     });
-
-    // Desk Environment
-    const deskGeo = new THREE.PlaneGeometry(24, 18);
-    const deskMat = new THREE.MeshStandardMaterial({
-      color: 0x050608,
-      roughness: 0.8,
-      metalness: 0.15
-    });
-    const deskMesh = new THREE.Mesh(deskGeo, deskMat);
-    deskMesh.rotation.x = -Math.PI / 2;
-    deskMesh.position.set(0, -0.65, -1);
-    stage1DeskGroup.add(deskMesh);
-
-    // Light Spill Plane
-    const spillGeo = new THREE.PlaneGeometry(8.5, 6.5);
-    const spillMat = new THREE.MeshBasicMaterial({
-      map: createDeskLightTexture(),
-      transparent: true,
-      opacity: 0.95,
-      depthWrite: false
-    });
-    const spillMesh = new THREE.Mesh(spillGeo, spillMat);
-    spillMesh.rotation.x = -Math.PI / 2;
-    spillMesh.position.set(0.1, -0.64, 0.15);
-    stage1DeskGroup.add(spillMesh);
-
-    scene.add(stage1DeskGroup);
 
     // Laptop Base
     const baseW = 3.4, baseH = 0.11, baseD = 2.3;
@@ -821,13 +751,23 @@
     if (!materials.laptopBody) return;
 
     if (currentTheme === 'dark') {
-      materials.laptopBody.color.setHex(0x222428);
-      materials.trackpad.color.setHex(0x2a2d33);
-      materials.ambientLight.color.setHex(0x061226);
+      // Dark Mode: Apple Space Black Pro Anodized Aluminum
+      materials.laptopBody.color.setHex(0x1e2026);
+      materials.laptopBody.roughness = 0.22;
+      materials.laptopBody.metalness = 0.94;
+      materials.trackpad.color.setHex(0x25272e);
+      materials.ambientLight.color.setHex(0x0a101d);
+      materials.ambientLight.intensity = 1.9;
+      materials.keyLight.intensity = 2.2;
     } else {
-      materials.laptopBody.color.setHex(0xdbe0e8);
-      materials.trackpad.color.setHex(0xc7cbd1);
-      materials.ambientLight.color.setHex(0xf0f7ff);
+      // Light Mode: Apple Studio Spotlight & Pure Silver Aluminum
+      materials.laptopBody.color.setHex(0xd8dde6);
+      materials.laptopBody.roughness = 0.16;
+      materials.laptopBody.metalness = 0.92;
+      materials.trackpad.color.setHex(0xc6cbd3);
+      materials.ambientLight.color.setHex(0xf8fafc);
+      materials.ambientLight.intensity = 2.4;
+      materials.keyLight.intensity = 2.6;
     }
   };
 
@@ -921,7 +861,6 @@
        ============================================================= */
     if (p < 0.40) {
       stage1LaptopGroup.visible = true;
-      stage1DeskGroup.visible = true;
 
       let openP = Math.min(p / 0.16, 1.0);
       let diveP = 0;
@@ -957,10 +896,8 @@
       materials.trackpad.opacity = alpha;
       materials.keys.opacity = alpha;
       materials.screen.opacity = alpha;
-      stage1DeskGroup.position.z = curPosZ * 0.6;
     } else {
       stage1LaptopGroup.visible = false;
-      stage1DeskGroup.visible = false;
     }
 
     /* =============================================================
